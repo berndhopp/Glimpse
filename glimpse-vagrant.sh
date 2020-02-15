@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export INSTALL_PREFIX=/vagrant/glimpse-prefix
 export SRC_PREFIX=/vagrant
@@ -10,37 +10,4 @@ export ACLOCAL_FLAGS="-I $INSTALL_PREFIX/share/aclocal $ACLOCAL_FLAGS"
 mkdir -p $INSTALL_PREFIX
 mkdir -p $INSTALL_PREFIX/share/aclocal
 
-echo "Cloning submodules in $SRC_PREFIX..."
-git submodule update --init
-
-echo "Building BABL in $SRC_PREFIX..."
-cd $SRC_PREFIX/babl
-./autogen.sh --prefix=$INSTALL_PREFIX
-make
-make install
-
-echo "Building mypaint-brushes in $SRC_PREFIX..."
-cd $SRC_PREFIX/mypaint-brushes
-./autogen.sh --prefix=$INSTALL_PREFIX
-./configure --prefix=$INSTALL_PREFIX
-make
-make install
-
-echo "Building libmypaint in $SRC_PREFIX..."
-cd $SRC_PREFIX/libmypaint
-./autogen.sh --prefix=$INSTALL_PREFIX
-./configure --prefix=$INSTALL_PREFIX
-make
-make install
-
-echo "Building GEGL in $SRC_PREFIX..."
-cd $SRC_PREFIX/gegl
-./autogen.sh --prefix=$INSTALL_PREFIX
-make
-make install
-
-echo "Building Glimpse in $SRC_PREFIX..."
-cd $SRC_PREFIX
-./autogen.sh --prefix=$INSTALL_PREFIX
-make
-make install
+. build-linux.sh
